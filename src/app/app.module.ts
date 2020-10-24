@@ -6,6 +6,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +31,7 @@ import {SelectTypeService} from './services/selectType.service';
     CreationPopupTemplateComponent,
   ],
   imports: [
+    MatInputModule,
     MatIconModule,
     MatButtonModule,
     MatGridListModule,

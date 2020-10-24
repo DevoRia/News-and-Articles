@@ -27,6 +27,7 @@ export class CreationPopupComponent {
 
 @Component({
   templateUrl: 'popup-template.html',
+  styleUrls: ['./creation-popup.component.scss']
 })
 export class CreationPopupTemplateComponent {
 

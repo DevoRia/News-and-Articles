@@ -1,11 +1,29 @@
 <h1 *ngIf="!isEdit" >Creation {{type}}</h1>
 <h1 *ngIf="isEdit" >Edit {{type}}</h1>
 
-<p>Title</p>
-<input [value]="title" #titleInput>
+<div class="inputPosition">
+  <mat-form-field class="input">
+    <mat-label>
+      Title
+    </mat-label>
+    <input matInput type="text" [value]="title" #titleInput>
+    <button mat-button *ngIf="titleInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="titleInput.value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field class="input">
+    <mat-label>
+      Content
+    </mat-label>
+    <input matInput [value]="content" #contentInput/>
+    <button mat-button *ngIf="contentInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="contentInput.value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 
-<p>Content</p>
-<input [value]="content" #contentInput>
 
-<button *ngIf="!isEdit" (click)="savePost(titleInput.value, contentInput.value)">Create</button>
-<button *ngIf="isEdit" (click)="updatePost(titleInput.value, contentInput.value)">Edit</button>
+<button mat-button *ngIf="!isEdit" (click)="savePost(titleInput.value, contentInput.value)">Create</button>
+<button mat-button *ngIf="isEdit" (click)="updatePost(titleInput.value, contentInput.value)">Edit</button>
+
+
