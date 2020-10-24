@@ -1,10 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
-import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 
@@ -34,10 +32,8 @@ import {SelectTypeService} from './services/selectType.service';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatGridListModule,
     MatToolbarModule,
     MatCardModule,
-    MatTabsModule,
     HttpClientModule,
     BrowserModule,
     MatDialogModule,

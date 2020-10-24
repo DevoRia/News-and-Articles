@@ -20,7 +20,6 @@ export class FirebaseService {
     return this.http
       .get<Post[]>(`${this.FIREBASE_LINK}/${type}.json`)
       .pipe(map(posts => {
-        console.log(posts);
 
         if (!posts) {
           return [];
