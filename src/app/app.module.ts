@@ -5,6 +5,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { NgModule } from '@angular/core';
 
@@ -29,6 +30,7 @@ import {SelectTypeService} from './services/selectType.service';
     CreationPopupTemplateComponent,
   ],
   imports: [
+    MatSnackBarModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,

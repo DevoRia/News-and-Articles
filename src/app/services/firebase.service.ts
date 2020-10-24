@@ -1,7 +1,7 @@
 import {Injectable, InjectionToken, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {catchError, map, retry} from 'rxjs/operators';
+import {Observable, of, throwError} from 'rxjs';
 import {Post, PostTypes} from '../models/models';
 
 interface CreateResponse {
@@ -20,7 +20,6 @@ export class FirebaseService {
     return this.http
       .get<Post[]>(`${this.FIREBASE_LINK}/${type}.json`)
       .pipe(map(posts => {
-
         if (!posts) {
           return [];
         }
@@ -33,9 +32,10 @@ export class FirebaseService {
       .get<Post>(`${this.FIREBASE_LINK}/${type}/${id}.json`)
       .pipe(map(post => {
         if (!post) {
-          return null;
+          throw Error('there is no post');
+        } else {
+          return ({...post, id});
         }
-        return ({...post, id});
       }));
   }
 

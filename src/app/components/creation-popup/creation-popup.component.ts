@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {FirebaseService} from '../../services/firebase.service';
 import {Post, PostTypes} from '../../models/models';
 import {SelectTypeService} from '../../services/selectType.service';
+import {ErrorNotifierService} from '../../services/error-notifier.service';
 
 @Component({
   selector: 'app-creation-popup',
@@ -46,6 +47,7 @@ export class CreationPopupTemplateComponent {
   constructor(private router: Router,
               private firebaseService: FirebaseService,
               private selectTypeService: SelectTypeService,
+              private errorNotifierService: ErrorNotifierService,
               public dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -54,7 +56,7 @@ export class CreationPopupTemplateComponent {
     this.isEditMode(data);
   }
 
-  isEditMode(data) {
+  isEditMode(data): void {
     if (!!data) {
       this.isEdit = true;
       this.title = data.title;
@@ -63,7 +65,7 @@ export class CreationPopupTemplateComponent {
     }
   }
 
-  savePost(title: string, content: string) {
+  savePost(title: string, content: string): void {
     const post = this.preparePost(title, content);
     if (!post) {
       return;
@@ -72,10 +74,12 @@ export class CreationPopupTemplateComponent {
       .subscribe(post => {
         this.dialog.closeAll();
         this.router.navigateByUrl(this.type);
-      });
+      },
+      () => this.errorNotifierService.connectionError()
+      );
   }
 
-  updatePost(title: string, content: string) {
+  updatePost(title: string, content: string): void {
     const post = this.preparePost(title, content);
 
     if (!post) {
@@ -83,7 +87,10 @@ export class CreationPopupTemplateComponent {
     }
 
     this.firebaseService.update(this.type, this.id, post)
-      .subscribe(post => this.dialog.closeAll());
+      .subscribe(
+        post => this.dialog.closeAll(),
+      () => this.errorNotifierService.connectionError()
+      );
   }
 
   private preparePost(title, content): Post {

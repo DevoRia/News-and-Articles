@@ -1,4 +1,3 @@
-
 <div class="wrapList">
   <div class="cardPosition" *ngFor="let post of posts">
     <app-content-card (click)="router.navigateByUrl(type+ '/'+ post.id + '/details')" [title]="post.title" [date]="post.date"></app-content-card>
@@ -7,6 +6,3 @@
     No data.
   </div>
 </div>
-
-
-

@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {PostTypes} from '../../models/models';
 import {FirebaseService} from '../../services/firebase.service';
 import {SelectTypeService} from '../../services/selectType.service';
+import {ErrorNotifierService} from '../../services/error-notifier.service';
 
 @Component({
   selector: 'app-view-page',
@@ -16,6 +17,7 @@ export class ViewPageComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService,
               private selectTypeService: SelectTypeService,
+              private errorNotifierService: ErrorNotifierService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -24,7 +26,10 @@ export class ViewPageComponent implements OnInit {
   }
 
   findAll(): void {
-    this.firebaseService.findAll(this.type).subscribe(posts => this.posts = posts);
+    this.firebaseService.findAll(this.type).subscribe(
+      posts => this.posts = posts,
+      () => this.errorNotifierService.connectionError()
+    );
   }
-
 }
+

@@ -5,6 +5,7 @@ import {Post, PostTypes} from '../../models/models';
 import {SelectTypeService} from '../../services/selectType.service';
 import {CreationPopupTemplateComponent} from '../../components/creation-popup/creation-popup.component';
 import {MatDialog} from '@angular/material/dialog';
+import {ErrorNotifierService} from '../../services/error-notifier.service';
 
 @Component({
   selector: 'app-details-page',
@@ -23,6 +24,7 @@ export class DetailsPageComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService,
               private selectTypeService: SelectTypeService,
+              private errorNotifierService: ErrorNotifierService,
               private router: Router,
               private dialog: MatDialog) {
   }
@@ -35,13 +37,22 @@ export class DetailsPageComponent implements OnInit {
   }
 
   findById(id: string): void {
-    this.firebaseService.findById(this.type, id).subscribe(post => this.post = post);
+    this.firebaseService.findById(this.type, id).subscribe(
+      post => this.post = post,
+      () => {
+        this.router.navigateByUrl(this.type);
+        this.errorNotifierService.connectionError();
+      }
+    );
   }
 
   remove(): void {
     if (confirm('Are you sure to remove this post?')) {
       this.firebaseService.remove(this.type, this.id)
-        .subscribe(() => this.router.navigateByUrl(this.type));
+        .subscribe(
+          () => this.router.navigateByUrl(this.type),
+          () => this.errorNotifierService.connectionError()
+        );
     }
   }
 
@@ -53,7 +64,10 @@ export class DetailsPageComponent implements OnInit {
         id: this.post.id,
       }
     });
-    this.dialog.afterAllClosed.subscribe(() => this.findById(this.id));
+    this.dialog.afterAllClosed.subscribe(
+      () => this.findById(this.id),
+      () => this.errorNotifierService.connectionError()
+    );
   }
 
   goBack(): void {
