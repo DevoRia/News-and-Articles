@@ -73,7 +73,7 @@ export class CreationPopupTemplateComponent {
     this.firebaseService.create(this.type, post)
       .subscribe(post => {
         this.dialog.closeAll();
-        this.router.navigateByUrl(this.type);
+        this.router.navigateByUrl(this.type + '/' + post.id + '/details');
       },
       () => this.errorNotifierService.connectionError()
       );
