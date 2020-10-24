@@ -1,0 +1,11 @@
+<h1 *ngIf="!isEdit" >Creation {{type}}</h1>
+<h1 *ngIf="isEdit" >Edit {{type}}</h1>
+
+<p>Title</p>
+<input [value]="title" #titleInput>
+
+<p>Content</p>
+<input [value]="content" #contentInput>
+
+<button *ngIf="!isEdit" (click)="savePost(titleInput.value, contentInput.value)">Create</button>
+<button *ngIf="isEdit" (click)="updatePost(titleInput.value, contentInput.value)">Edit</button>
