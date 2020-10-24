@@ -1,8 +1,12 @@
-<div *ngFor="let post of posts">
-  <app-content-card (click)="router.navigateByUrl(type+ '/'+ post.id + '/details')" [title]="post.title" [date]="post.date"></app-content-card>
 
+<div class="wrapList">
+  <div class="cardPosition" *ngFor="let post of posts">
+    <app-content-card (click)="router.navigateByUrl(type+ '/'+ post.id + '/details')" [title]="post.title" [date]="post.date"></app-content-card>
+  </div>
+  <div *ngIf="!posts || posts.length === 0">
+    No data.
+  </div>
 </div>
 
-<div *ngIf="!posts || posts.length === 0">
-  No data.
-</div>
+
+
