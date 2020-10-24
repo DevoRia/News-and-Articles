@@ -1,0 +1,14 @@
+.toolbarRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+.active {
+  color: white;
+  text-decoration: none;
+}

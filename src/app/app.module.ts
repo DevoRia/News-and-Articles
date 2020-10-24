@@ -1,5 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule} from '@angular/material/tabs';
+import {MatCardModule} from '@angular/material/card';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +29,12 @@ import {SelectTypeService} from './services/selectType.service';
     CreationPopupTemplateComponent,
   ],
   imports: [
+    MatIconModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatTabsModule,
     HttpClientModule,
     BrowserModule,
     MatDialogModule,

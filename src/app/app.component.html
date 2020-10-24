@@ -1,6 +1,24 @@
-<a routerLink="articles" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Articles</a>
-<a routerLink="news" routerLinkActive="active">News</a>
-
-<app-creation-popup></app-creation-popup>
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="toolbarRow">
+    <div>
+      Articles-and-News
+    </div>
+    <div class="toolbarRow">
+      <a class="link" routerLink="articles" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Articles</a>
+      <a class="link" routerLink="news" routerLinkActive="active">News</a>
+    </div>
+    <div>
+      <app-creation-popup></app-creation-popup>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
+
+
+
+
+
+
+
+
