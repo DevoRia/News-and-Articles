@@ -38,14 +38,14 @@ export class DetailsPageComponent implements OnInit {
     this.firebaseService.findById(this.type, id).subscribe(post => this.post = post);
   }
 
-  remove() {
+  remove(): void {
     if (confirm('Are you sure to remove this post?')) {
       this.firebaseService.remove(this.type, this.id)
         .subscribe(() => this.router.navigateByUrl(this.type));
     }
   }
 
-  update() {
+  update(): void {
     this.dialog.open(CreationPopupTemplateComponent, {
       data: {
         title: this.post.title,
@@ -53,5 +53,6 @@ export class DetailsPageComponent implements OnInit {
         id: this.post.id,
       }
     });
+    this.dialog.afterAllClosed.subscribe(() => this.findById(this.id));
   }
 }

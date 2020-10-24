@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Inject } from '@angular/core';
@@ -14,14 +14,20 @@ import {SelectTypeService} from '../../services/selectType.service';
 })
 export class CreationPopupComponent {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,
+              private router: Router
+  ) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreationPopupTemplateComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+    }
+   );
   }
 }
 
@@ -78,10 +84,7 @@ export class CreationPopupTemplateComponent {
     }
 
     this.firebaseService.update(this.type, this.id, post)
-      .subscribe(post => {
-        this.dialog.closeAll();
-
-      });
+      .subscribe(post => this.dialog.closeAll());
   }
 
   private preparePost(title, content): Post {
