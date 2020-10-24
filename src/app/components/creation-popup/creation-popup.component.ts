@@ -65,7 +65,6 @@ export class CreationPopupTemplateComponent {
 
   savePost(title: string, content: string) {
     const post = this.preparePost(title, content);
-    console.log(post);
     if (!post) {
       return;
     }

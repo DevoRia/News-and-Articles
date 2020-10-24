@@ -55,4 +55,8 @@ export class DetailsPageComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe(() => this.findById(this.id));
   }
+
+  goBack(): void {
+    this.router.navigateByUrl(this.type);
+  }
 }
