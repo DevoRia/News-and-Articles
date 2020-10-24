@@ -1,6 +1,14 @@
-<h1>{{post.title}}</h1>
-<h2>{{post.date}}</h2>
-<p>{{post.content}}</p>
+<div class="container">
+  <div class="content">
+    <h1 class="mat-title title">{{post.title}}</h1>
+    <span class="mat-caption date">{{post.date | date}}</span>
+    <p class="text">{{post.content}}</p>
+  </div>
+  <div class="actions">
+    <button mat-flat-button (click)="update()">Update</button>
+    <button mat-flat-button color="warn" (click)="remove()">Remove</button>
+  </div>
+</div>
 
-<button (click)="remove()">Remove</button>
-<button (click)="update()">Update</button>
+
+
