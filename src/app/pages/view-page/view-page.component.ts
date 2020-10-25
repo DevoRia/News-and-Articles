@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {PostTypes} from '../../models/models';
+import {PostTypes} from '../../models/post.model';
 import {FirebaseService} from '../../services/firebase.service';
 import {SelectTypeService} from '../../services/selectType.service';
 import {ErrorNotifierService} from '../../services/error-notifier.service';

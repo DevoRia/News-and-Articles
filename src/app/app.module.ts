@@ -6,6 +6,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 import { NgModule } from '@angular/core';
 
@@ -19,6 +22,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FirebaseService} from './services/firebase.service';
 import {HttpClientModule} from '@angular/common/http';
 import {SelectTypeService} from './services/selectType.service';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { LoginToggleComponent } from './components/login-toggle/login-toggle.component';
+
+const config = {
+  apiKey: 'AIzaSyBy6Ch0l68UapGIrKjOZAsJ0OyeNUbxSKY',
+  authDomain: 'https://viseventest-709db.firebaseapp.com',
+  projectId: 'viseventest-709db',
+  storageBucket: 'gs://viseventest-709db.appspot.com',
+};
 
 @NgModule({
   declarations: [
@@ -28,8 +40,13 @@ import {SelectTypeService} from './services/selectType.service';
     ContentCardComponent,
     CreationPopupComponent,
     CreationPopupTemplateComponent,
+    LoginPageComponent,
+    LoginToggleComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
     MatSnackBarModule,
     MatInputModule,
     MatIconModule,

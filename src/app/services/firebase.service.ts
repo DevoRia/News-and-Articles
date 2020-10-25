@@ -2,7 +2,7 @@ import {Injectable, InjectionToken, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map, retry} from 'rxjs/operators';
 import {Observable, of, throwError} from 'rxjs';
-import {Post, PostTypes} from '../models/models';
+import {Post, PostTypes} from '../models/post.model';
 
 interface CreateResponse {
   name: string;
