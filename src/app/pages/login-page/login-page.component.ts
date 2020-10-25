@@ -15,7 +15,6 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.getUser().subscribe(user => {
-      console.log(user);
       if (user) {
         this.router.navigateByUrl('');
       }

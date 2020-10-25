@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Inject } from '@angular/core';
@@ -8,6 +8,7 @@ import {Post, PostTypes} from '../../models/post.model';
 import {SelectTypeService} from '../../services/selectType.service';
 import {ErrorNotifierService} from '../../services/error-notifier.service';
 import {AuthService} from '../../services/auth.service';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
   selector: 'app-creation-popup',
@@ -54,9 +55,11 @@ export class CreationPopupTemplateComponent implements OnInit{
   content = '';
   id: string;
   userId: string;
+  file: File;
 
   constructor(private router: Router,
               private firebaseService: FirebaseService,
+              private storageService: StorageService,
               private authService: AuthService,
               private selectTypeService: SelectTypeService,
               private errorNotifierService: ErrorNotifierService,
@@ -83,11 +86,24 @@ export class CreationPopupTemplateComponent implements OnInit{
     }
   }
 
+  setFile(files: File[]): void {
+    const fileName = files[0];
+    const fileType = fileName.type;
+    if (fileType.match(/image\/(.*?)/)) {
+      this.file = files[0];
+    }
+  }
+
   savePost(title: string, content: string): void {
     const post = this.preparePost(title, content);
     if (!post) {
       return;
     }
+
+    if (this.file) {
+      post.photo = this.uploadPhoto(post);
+    }
+
     this.firebaseService.create(this.type, post)
       .subscribe(post => {
         this.dialog.closeAll();
@@ -102,6 +118,10 @@ export class CreationPopupTemplateComponent implements OnInit{
 
     if (!post) {
       return;
+    }
+
+    if (this.file) {
+      post.photo = this.uploadPhoto(post);
     }
 
     this.firebaseService.update(this.type, this.id, post)
@@ -122,6 +142,10 @@ export class CreationPopupTemplateComponent implements OnInit{
       owner: this.userId,
       date: new Date()
     };
+  }
+
+  private uploadPhoto(post) {
+    return this.storageService.uploadPhoto(this.file, post.title);
   }
 
 }

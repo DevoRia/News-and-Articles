@@ -20,6 +20,9 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  <div>
+    <input type="file" (change)="setFile($event.target.files)"/>
+  </div>
 </div>
 
 

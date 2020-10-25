@@ -7,6 +7,7 @@ import {CreationPopupTemplateComponent} from '../../components/creation-popup/cr
 import {MatDialog} from '@angular/material/dialog';
 import {ErrorNotifierService} from '../../services/error-notifier.service';
 import {AuthService} from '../../services/auth.service';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
   selector: 'app-details-page',
@@ -28,6 +29,7 @@ export class DetailsPageComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService,
               private selectTypeService: SelectTypeService,
+              private storageService: StorageService,
               private authService: AuthService,
               private errorNotifierService: ErrorNotifierService,
               private router: Router,
@@ -45,6 +47,7 @@ export class DetailsPageComponent implements OnInit {
     this.firebaseService.findById(this.type, id).subscribe(
       post => {
         this.post = post;
+        this.getPublicPhotoLink();
         this.checkOwner();
       },
       () => {
@@ -91,5 +94,12 @@ export class DetailsPageComponent implements OnInit {
         this.isOwner = false;
       }
     });
+  }
+
+  getPublicPhotoLink() {
+    if (this.post.photo) {
+      this.storageService.getDownloadURL(this.post.photo)
+        .subscribe(url => this.post.photo = url);
+    }
   }
 }

@@ -3,6 +3,7 @@ export interface Post {
   title: string;
   content: string;
   owner?: string;
+  photo?: string;
   date: Date;
 }
 

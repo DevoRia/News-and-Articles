@@ -5,15 +5,20 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
   </div>
-  <div>
-    <div class="content">
-      <h1 class="mat-title title">{{post.title}}</h1>
-      <span class="mat-caption">{{post.date | date}}</span>
-      <p class="text">{{post.content}}</p>
+  <div class="fullContent">
+    <div>
+      <div class="content">
+        <h1 class="mat-title title">{{post.title}}</h1>
+        <span class="mat-caption">{{post.date | date:'medium' }}</span>
+        <p class="text">{{post.content}}</p>
+      </div>
+      <div *ngIf="isOwner" class="actions">
+        <button mat-flat-button (click)="update()">Update</button>
+        <button mat-flat-button color="warn" (click)="remove()">Remove</button>
+      </div>
     </div>
-    <div *ngIf="isOwner" class="actions">
-      <button mat-flat-button (click)="update()">Update</button>
-      <button mat-flat-button color="warn" (click)="remove()">Remove</button>
+    <div class="photo" *ngIf="post.photo">
+      <img width="300" height="300" [src]="post.photo" />
     </div>
   </div>
 </div>
