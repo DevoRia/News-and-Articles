@@ -1,0 +1,4 @@
+<button *ngIf="!isSignedIn" mat-button (click)="goToLoginPage()">Login</button>
+<button *ngIf="isSignedIn" mat-button (click)="logout()">Logout</button>
+
+{{userEmail}}

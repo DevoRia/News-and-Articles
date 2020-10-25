@@ -11,7 +11,7 @@
       <span class="mat-caption">{{post.date | date}}</span>
       <p class="text">{{post.content}}</p>
     </div>
-    <div class="actions">
+    <div *ngIf="isOwner" class="actions">
       <button mat-flat-button (click)="update()">Update</button>
       <button mat-flat-button color="warn" (click)="remove()">Remove</button>
     </div>

@@ -1,23 +1,33 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import {Router} from '@angular/router';
 import {FirebaseService} from '../../services/firebase.service';
-import {Post, PostTypes} from '../../models/models';
+import {Post, PostTypes} from '../../models/post.model';
 import {SelectTypeService} from '../../services/selectType.service';
 import {ErrorNotifierService} from '../../services/error-notifier.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-creation-popup',
   templateUrl: './creation-popup.component.html',
   styleUrls: ['./creation-popup.component.scss']
 })
-export class CreationPopupComponent {
+export class CreationPopupComponent implements OnInit {
+
+  isSignedIn = false;
 
   constructor(private dialog: MatDialog,
+              private authService: AuthService,
               private router: Router
   ) { }
+
+  ngOnInit(): void {
+    this.authService.getUser().subscribe(user => {
+      this.isSignedIn = !!user;
+    });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreationPopupTemplateComponent);
@@ -36,16 +46,18 @@ export class CreationPopupComponent {
   templateUrl: 'popup-template.html',
   styleUrls: ['./creation-popup.component.scss']
 })
-export class CreationPopupTemplateComponent {
+export class CreationPopupTemplateComponent implements OnInit{
 
   type: PostTypes;
   isEdit = false;
   title = '';
   content = '';
   id: string;
+  userId: string;
 
   constructor(private router: Router,
               private firebaseService: FirebaseService,
+              private authService: AuthService,
               private selectTypeService: SelectTypeService,
               private errorNotifierService: ErrorNotifierService,
               public dialog: MatDialog,
@@ -54,6 +66,12 @@ export class CreationPopupTemplateComponent {
     const type = this.selectTypeService.getTypeByName(this.router.url.replace('/', ''));
     this.type = type ? type : this.selectTypeService.getTypeByName(this.router.url.split('/')[1]);
     this.isEditMode(data);
+  }
+
+  ngOnInit(): void {
+    this.authService.getUser().subscribe(user => {
+      this.userId = !!user ? user.uid : '';
+    });
   }
 
   isEditMode(data): void {
@@ -101,6 +119,7 @@ export class CreationPopupTemplateComponent {
     return  {
       title,
       content,
+      owner: this.userId,
       date: new Date()
     };
   }

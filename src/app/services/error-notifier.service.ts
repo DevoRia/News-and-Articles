@@ -14,4 +14,11 @@ export class ErrorNotifierService {
     });
   }
 
+  error(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+    });
+  }
+
+
 }

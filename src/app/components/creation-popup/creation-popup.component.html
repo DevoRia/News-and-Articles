@@ -1,1 +1,1 @@
-<button mat-button (click)="openDialog()">Create</button>
+<button *ngIf="isSignedIn" mat-button (click)="openDialog()">Create</button>

@@ -24,6 +24,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {SelectTypeService} from './services/selectType.service';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { LoginToggleComponent } from './components/login-toggle/login-toggle.component';
+import {AuthService} from './services/auth.service';
+import {ErrorNotifierService} from './services/error-notifier.service';
+import {AuthGuard} from './services/auth.guard';
 
 const config = {
   apiKey: 'AIzaSyBy6Ch0l68UapGIrKjOZAsJ0OyeNUbxSKY',
@@ -61,8 +64,10 @@ const config = {
   ],
   providers: [
     FirebaseService,
+    AuthService,
+    ErrorNotifierService,
+    AuthGuard,
     SelectTypeService,
-    { provide: 'FIREBASE_LINK', useValue: 'https://viseventest-709db.firebaseio.com'}
   ],
   bootstrap: [AppComponent]
 })
